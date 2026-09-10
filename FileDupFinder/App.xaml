@@ -1,0 +1,29 @@
+﻿<!-- WPF-UIの名前空間を追加 -->
+<Application
+    x:Class="FileDupFinder.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:local="clr-namespace:FileDupFinder"
+    xmlns:vm="clr-namespace:FileDupFinder.ViewModels.Pages"
+    xmlns:pg="clr-namespace:FileDupFinder.Views.Pages"
+    StartupUri="Views/MainWindow.xaml">
+
+    <Application.Resources>
+
+        <!--  複数指定できるようにResourceDictionaryを使用  -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ui:ThemesDictionary  Theme="Dark" />
+                <ui:ControlsDictionary />
+                <!--  Other merged dictionaries here  -->
+            </ResourceDictionary.MergedDictionaries>
+            <!--  Other app resources here  -->
+            <DataTemplate DataType="{x:Type vm:TopPageViewModel}">
+                <pg:TopPage />
+            </DataTemplate>
+        </ResourceDictionary>
+
+    </Application.Resources>
+
+</Application>
