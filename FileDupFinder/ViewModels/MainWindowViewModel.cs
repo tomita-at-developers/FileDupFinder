@@ -23,9 +23,6 @@ namespace FileDupFinder.ViewModels
             set
             {
                 SetProperty(ref _currentPage, value);
-                // ページ戻る/進むコマンドの有効/無効状態変化イベント発行
-                PageBackCommand?.NotifyCanExecuteChanged();
-                PageNextCommand?.NotifyCanExecuteChanged();
             }
         }
 
@@ -40,16 +37,6 @@ namespace FileDupFinder.ViewModels
         private List<PageViewModelBase> _pages;
 
         /// <summary>
-        /// ページ戻るコマンド
-        /// </summary>
-        public IRelayCommand PageBackCommand { get; }
-
-        /// <summary>
-        /// ページ進むコマンド
-        /// </summary>
-        public IRelayCommand PageNextCommand { get; }
-
-        /// <summary>
         /// コンストラクタ
         /// </summary>
         public MainWindowViewModel()
@@ -61,25 +48,6 @@ namespace FileDupFinder.ViewModels
             //CurrentPage = StartPage;
             CurrentPage = _pages.First();
 
-        }
-
-        // <summary>
-        /// ページ戻るコマンドの処理
-        /// </summary>
-        private void PageBackExecute()
-        {
-            // ページ管理リストを使用して、現在ページの1つ前を現在ページに設定
-            CurrentPage = _pages[_pages.FindIndex(x => x == CurrentPage) - 1];
-        }
-
-        /// <summary>
-        /// ページ戻るコマンド実行可否を設定
-        /// </summary>
-        /// <returns></returns>
-        private bool PageBackCanExecute()
-        {
-            // 現在ページが最初のページ以外ならコマンド実行可
-            return CurrentPage != _pages.First();
         }
 
     }

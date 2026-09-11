@@ -16,7 +16,7 @@ namespace FileDupFinder.Views.Pages
     /// <summary>
     /// TopPage.xaml の相互作用ロジック
     /// </summary>
-    public partial class TopPage : Page
+    public partial class TopPage : UserControl
     {
         public TopPage()
         {
