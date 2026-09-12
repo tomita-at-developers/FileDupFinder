@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="FileDupFinder.Views.Pages.FinderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:v="clr-namespace:FileDupFinder.Views.Pages"
+             xmlns:vm="clr-namespace:FileDupFinder.ViewModels.Pages"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=vm:FinderViewModel, IsDesignTimeCreatable=False}"
+             d:DesignWidth="800" d:DesignHeight="500">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <!-- 👈 ここに進捗エリアが拡張されます -->
+        </Grid.RowDefinitions>
+
+        <!-- 上部：パス入力・参照・設定遷移用のメニューバー -->
+        <Grid Grid.Row="0" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Text="{Binding TargetFolderPath, UpdateSourceTrigger=PropertyChanged}" 
+                     Height="32" VerticalContentAlignment="Center" Padding="5,0"/>
+            <Button Grid.Column="1" Content="参照..." Command="{Binding SelectFolderCommand}" 
+                    Width="75" Margin="8,0,0,0"/>
+            <Button Grid.Column="2" Content="⚙ 検索条件設定" Command="{Binding MoveToSettingsCommand}" 
+                    Width="120" Margin="8,0,0,0" Background="#E0E0E0"/>
+        </Grid>
+
+        <!-- 中部：スキャン実行／キャンセルの操作トリガーエリア -->
+        <Grid Grid.Row="1" Margin="0,0,0,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="重複ファイルの検索を開始" Command="{Binding SearchDuplicatesCommand}" 
+                    Height="38" Background="#007ACC" Foreground="White" FontWeight="Bold"/>
+            <Button Grid.Column="1" Content="キャンセル" Command="{Binding CancelSearchCommand}" 
+                    Height="38" Margin="10,0,0,0" Background="#F0F0F0" Foreground="#C62828"/>
+        </Grid>
+
+        <!-- 発見された重複ファイルの一覧コンテナ -->
+        <ListBox Grid.Row="2" ItemsSource="{Binding DuplicateFiles}" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <v:FileItemView />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!-- 進捗詳細テキスト ＋ 動的プログレスバーのコンボエリア -->
+        <StackPanel Grid.Row="3" Margin="0,10,0,0">
+            <!-- 従来のStatusMessageをProgressTextにバインド変更 -->
+            <TextBlock Text="{Binding ProgressText}" Margin="0,0,0,6" Foreground="#444444" FontSize="12" FontWeight="SemiBold"/>
+            <!-- ViewModelから状態や数値を直接制御できるプログレスバー -->
+            <ProgressBar Value="{Binding ProgressValue}" 
+                         Maximum="{Binding ProgressMaximum}" 
+                         Height="12" 
+                         Foreground="#007ACC"
+                         Background="#EAEAEA"
+                         BorderThickness="0"
+                         Visibility="{Binding ProgressBarVisibility}"/>
+        </StackPanel>
+
+    </Grid>
+
+</UserControl>

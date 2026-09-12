@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace FileDupFinder.Views.Pages
 {
     /// <summary>
-    /// TopPage.xaml の相互作用ロジック
+    /// SettingsView.xaml の相互作用ロジック
     /// </summary>
-    public partial class TopPage : UserControl
+    public partial class SettingsView : UserControl
     {
-        public TopPage()
+        public SettingsView()
         {
             InitializeComponent();
         }
