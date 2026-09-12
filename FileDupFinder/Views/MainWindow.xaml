@@ -1,43 +1,12 @@
-﻿<ui:FluentWindow
-    x:Class="FileDupFinder.MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    xmlns:local="clr-namespace:FileDupFinder"
-    xmlns:vm="clr-namespace:FileDupFinder.ViewModels"
-    Height="300"
-    Width="400"
-    mc:Ignorable="d">
-    <!--  このWindowのDataContext定義 -->
-    <Window.DataContext>
-        <vm:MainWindowViewModel />
-    </Window.DataContext>
-    <Grid>
-        <Grid.RowDefinitions>
-            <!-- [0行目] タイトルバー用の高さ（自動調整） -->
-            <RowDefinition Height="Auto"/>
-            <!-- [1行目] アプリの中身用の高さ（残りの画面すべて） -->
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <!-- [0行目] タイトルバー用の高さ（自動調整） -->
-        <ui:TitleBar Grid.Row="0" 
-             FontFamily="Segoe UI, Meiryo"
-             MinHeight="32"
-             Height="32"
-             VerticalContentAlignment="Center">
-            <ui:TitleBar.Header>
-                <TextBlock 
-                    Text="File Dup Finder" 
-                    VerticalAlignment="Center"
-                    Margin="16,0,0,0"
-                    Style="{DynamicResource CaptionTextBlockStyle}" />
-            </ui:TitleBar.Header>
-        </ui:TitleBar>
-        <!-- [1行目]ページ部分  CurrentPageとバインド -->
-        <ContentControl Grid.Row="0"
-            Margin="10" 
-            Content="{Binding CurrentPage, Mode=OneWay}" />
-    </Grid>
-</ui:FluentWindow>
+﻿<Window x:Class="FileDupFinder.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:v="clr-namespace:FileDupFinder.Views"
+        xmlns:vm="clr-namespace:FileDupFinder.ViewModels"
+        mc:Ignorable="d"
+        Title="ファイル重複チェッカー" Height="550" Width="800">
+    <!-- MainWindowViewModel.CurrentViewModelの状態変化に応じて表示するページUserControlが動的に入れ替わります -->
+    <ContentControl Content="{Binding CurrentViewModel}" />
+</Window>
